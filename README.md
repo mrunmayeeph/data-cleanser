@@ -2,21 +2,6 @@
 
 **Data Fixer** is a web application that automatically cleans CSV files by removing missing values. It's designed to be simple yet effective, allowing users to upload a CSV file, clean the data, and download the cleaned CSV file.
 
-<p align="center">
-  <img src="./client/public/pic1.png?raw=true" width="300" height="420">
-  <img src="./client/public/pic2.png?raw=true" width="300" height="420">
-</p>
-
-<p align="center">
-  <img src="./client/public/pic3.png?raw=true" width="500" height="350">
-</p>
-
-
-<p align="center">
-  <img src="./client/public/pic4.png?raw=true" width="400" height="450">
-  <img src="./client/public/pic5.png?raw=true" width="400" height="450">
-</p>
-
 ## Features
 
 - **CSV Upload**: Upload a CSV file from your computer.
@@ -28,25 +13,9 @@
 
 ### Client (Frontend)
 
-<p align-"left"> 
-<img src="https://img.shields.io/badge/typescript-037acb?style=for-the-badge&logo=typescript&logoColor=white">
-<img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB">
-<img src="https://img.shields.io/badge/css-254bdd?style=for-the-badge&logo=css3&logoColor=white">
-</p>
-
 - **TypeScript**: A typed superset of JavaScript that helps catch errors at compile time.
 - **React**: JavaScript library for building user interfaces.
 - **CSS**: Styling language used to design the look and feel of the application.
-
-
-### Server (Backend)
-<p align-"left"> 
-<img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=white">
-<img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white">
-<img src="https://img.shields.io/badge/sqlite-67bbe7?style=for-the-badge&logo=sqlite&logoColor=white">
-<img src="https://img.shields.io/badge/sqlAlchemy-c22820?style=for-the-badge&logo=sqlalchemy&logoColor=white">
-</p>
-
 
 - **Flask**: A lightweight WSGI web application framework for Python.
 - **SQLite**: A C library that provides a lightweight, disk-based database.
@@ -175,4 +144,5 @@ npm start
 - `POST /register`: Register a new user.
 - `POST /login`: Log in and receive a JWT token.
 - `POST /clean_csv`: Upload and clean a CSV file (removes missing values).
+
 - `GET /download_cleaned_csv`: Download the cleaned CSV file.
