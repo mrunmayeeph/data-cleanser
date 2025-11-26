@@ -64,64 +64,6 @@ data-fixer/
 - **Python**: Ensure Python 3.x is installed (for the backend).
 - **SQLite**: No need for a separate installation; SQLite is built into Python.
 
-### 🔵 Setup
-
-#### 1. Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/data-fixer.git
-cd data-fixer
-```
-
-#### 2. Install Frontend Dependencies
-```bash
-cd client
-npm install 
-```
-#### 3. Install Backend Dependencies
-```bash
-cd ../server
-
-# Create a virtual environment
-python -m venv your_venv
-
-# Activate it
-source your_venv/bin/activate # on macOS/Linux
-venv\Scripts\activate # on Windows
-
-# NOTE: You should see (venv) prefixed to your command prompt, indicating that the virtual environment is active.
-
-# Install the backend dependencies:
-pip install -r requirements.txt
-```
-#### 4. Set Up the Database
-
-The database configuration is already handled within the `app.py` file. By default, it uses SQLite and stores the database in the project directory.
-
-To create the database tables, simply run the following command:
-```bash
-python server/utils/create_tables.py
-```
-This script will initialize the database and create the necessary tables based on your SQLAlchemy models.
-
-You only need to run this script once, or whenever you modify your database models and need to update the schema.
-
-### 5. Configure Environment Variables
-Create a `.env` file in the server directory to store your **JWT secret key**. You can generate a JWT secret key using the following command in the Terminal:
-
-```bash
-python -c "import secrets; print(secrets.token_hex(32))"
-```
-
-Save the generated key in your `.env` file like this:
-```bash
-JWT_SECRET_KEY=your_generated_secret_key
-```
-
-
-**🚨IMPORTANT NOTE🚨:**
-Make sure that the database file (e.g., `your_database.db`), the virtual environment directory (e.g., `venv`), and the `.env` file are ignored by Git to prevent them from being tracked in version control. These entries should be included in your **.gitignore** file.
-
 
 ### 🔵 Running the Application
 #### 1. Start the Backend Server
@@ -146,3 +88,4 @@ npm start
 - `POST /clean_csv`: Upload and clean a CSV file (removes missing values).
 
 - `GET /download_cleaned_csv`: Download the cleaned CSV file.
+
