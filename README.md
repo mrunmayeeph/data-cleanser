@@ -1,6 +1,6 @@
-# Data Fixer - CSV Cleaner
+# Data cleanser - CSV Cleaner
 
-**Data Fixer** is a web application that automatically cleans CSV files by removing missing values. It's designed to be simple yet effective, allowing users to upload a CSV file, clean the data, and download the cleaned CSV file.
+**Data cleanser** is a web application that automatically cleans CSV files by removing missing values. It's designed to be simple yet effective, allowing users to upload a CSV file, clean the data, and download the cleaned CSV file.
 
 ## Features
 
@@ -88,5 +88,6 @@ npm start
 - `POST /clean_csv`: Upload and clean a CSV file (removes missing values).
 
 - `GET /download_cleaned_csv`: Download the cleaned CSV file.
+
 
 
