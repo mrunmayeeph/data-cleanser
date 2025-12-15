@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.env.*
+
+# Conda / venv
+env/
+venv/
+*.env
+
+# Node / React
+node_modules/
+build/
+
+# Uploads (VERY IMPORTANT)
+uploads/
+*.csv
+
+# OS
+.DS_Store
+Thumbs.db
