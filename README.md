@@ -4,90 +4,91 @@
 
 ## Features
 
-- **CSV Upload**: Upload a CSV file from your computer.
-- **Automatic Cleaning**: The app automatically removes rows with missing values from the CSV file.
-- **Download Cleaned Data**: Download the cleaned CSV file for further use.
-- **Secure Authentication**: Users must log in to use the service, ensuring secure access.
+Secure Authentication -JWT-based login, protected routes, profile management, and password updates.
+Scalable CSV Upload -Upload CSV files up to 100MB with real-time progress tracking and large-file detection.
+Data Quality Analysis -Automatic insights on rows, columns, missing values, duplicates, and column-wise statistics.
+Configurable Preprocessing -User-controlled cleaning options including duplicate removal, column standardization, whitespace trimming, type conversion, and missing-value handling.
+Asynchronous Processing -Background preprocessing using Redis + RQ with live status updates and progress polling.
+Preview & Export -Preview sample rows and download the processed CSV.
+Processing History -Tracks recent jobs with file metadata, row counts, and processing status.
 
 ## Tech Stack
 
-### Client (Frontend)
+🎨 Client (Frontend)
 
-- **TypeScript**: A typed superset of JavaScript that helps catch errors at compile time.
-- **React**: JavaScript library for building user interfaces.
-- **CSS**: Styling language used to design the look and feel of the application.
+React (TypeScript) – Component-based UI with type safety
+React Router – Protected and public route handling
+Axios – API communication with progress tracking
+CSS (Custom + Responsive) – Clean dashboard UI with sidebar navigation and modular styling
+LocalStorage – Persist user session data and processing history
 
-- **Flask**: A lightweight WSGI web application framework for Python.
-- **SQLite**: A C library that provides a lightweight, disk-based database.
-- **SQLAlchemy**: A SQL toolkit and Object-Relational Mapping (ORM) library for Python.
+⚙️ Server (Backend)
+
+Flask (Python) – RESTful API development
+Flask-SQLAlchemy – ORM-based database interactions
+SQLite – Lightweight relational database
+JWT (PyJWT) – Secure token-based authentication
+Pandas & NumPy – Efficient CSV parsing, analysis, and preprocessing
+Redis + RQ – Asynchronous background task execution for large files
+
+🔧 Infrastructure & Utilities
+
+dotenv – Environment variable management
+Werkzeug – Secure file handling and request processing
 
 ## Project Structure
 
 ```bash
-data-fixer/
+datacleanser/
 │
-├── client/                      # React frontend
-│   ├── .gitignore               # Git ignore file for client
-│   ├── src/                     # Source files
-│   │   ├── components/          # React components
-│   │   ├── api_service.ts       # API service for making requests to the backend
-│   │   ├── App.tsx              # Main React component
-│   │   ├── index.tsx            # Entry point for the React app
-│   │   └── ...                  # Other frontend files
-│   └── public/                  # Public assets
+├── client/                          # React + TypeScript Frontend
+│   ├── public/
+│   │   └── index.html
+│   │
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── CSVUpload.tsx        # CSV upload, analysis, preprocessing UI
+│   │   │   ├── CSVUpload.css
+│   │   │   ├── Dashboard.tsx        # Main dashboard (sidebar + content)
+│   │   │   ├── Dashboard.css
+│   │   │   ├── Login.tsx            # Login & Register UI
+│   │   │   ├── Auth.css
+│   │   │
+│   │   ├── api_service.ts           # Axios API wrapper (auth, upload, preprocess)
+│   │   ├── App.tsx                  # Routing + protected routes
+│   │   ├── App.css
+│   │   ├── index.tsx                # React root
+│   │   ├── index.css                # Global styles
+│   │
+│   ├── package.json
+│   ├── package-lock.json
+│   └── tsconfig.json
 │
-├── server/                      # Flask backend
-│   ├── .gitignore               # Git ignore file for server
-│   ├── app.py                   # Flask app entry point and configuration
-│   ├── models/                  # Database models (SQLAlchemy)
-│   │   ├── user_model.py        # User model
-│   │   └── token_model.py       # Blacklisted token model
-│   ├── controllers/             # Controllers for handling routes
-│   │   ├── csv_controller.py    # Controller for CSV cleaning operations
-│   │   └── user_controller.py   # Controller for user operations (register, login, logout)
-│   ├── routes.py                # Route definitions
-│   ├── utils/                   # Utility scripts
-│   │   └── create_tables.py     # Script to create tables if they don't exist
-│   └── ...                      # Other backend files
+├── server/                          # Flask Backend
+│   ├── controllers/
+│   │   ├── csv_controller.py        # Upload, analysis, preprocessing, download
+│   │   ├── user_controller.py       # Auth, profile, password management
+│   │
+│   ├── models/
+│   │   └── user.py                  # SQLAlchemy User model
+│   │
+│   ├── routes/
+│   │   └── __init__.py              # Route registration
+│   │
+│   ├── extensions.py                # DB initialization
+│   ├── app.py                       # Flask app entry point
+│   └── uploads/                     # Uploaded CSV files
 │
-├── requirements.txt             # Python dependencies
-└── README.md                    # Project documentation
+├── redis/                           # Redis (used by RQ)
+│
+├── requirements.txt                 # Python dependencies
+├── .env                             # Environment variables
+├── README.md
+└── .gitignore
+
 
 ```
 
-
-## Getting Started
-
-### 🔵 Prerequisites
-
-- **Node.js**: Make sure you have Node.js installed (for the frontend).
-- **Python**: Ensure Python 3.x is installed (for the backend).
-- **SQLite**: No need for a separate installation; SQLite is built into Python.
-
-
-### 🔵 Running the Application
-#### 1. Start the Backend Server
-```bash
-cd server
-flask run
-```
-
-#### 2. Start the Frontend Development Server
-```bash
-cd client
-npm start
-```
-### 🔵 Usage
-1. **Register/Login**: Use the registration and login features to authenticate.
-2. **Upload CSV**: Navigate to the upload section and select your CSV file.
-3. **Clean CSV**: Click on the "Clean" button to automatically remove rows with missing values.
-4. **Download Cleaned CSV**: After the cleaning process, download the cleaned CSV file.
-### 🔵 API Endpoints
-- `POST /register`: Register a new user.
-- `POST /login`: Log in and receive a JWT token.
-- `POST /clean_csv`: Upload and clean a CSV file (removes missing values).
-
-- `GET /download_cleaned_csv`: Download the cleaned CSV file.
 
 
 
