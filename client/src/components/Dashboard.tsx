@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ApiService, { User } from '../api_service';
 import CSVUpload from './CSVUpload';
+import ThemeToggle from './ThemeToggle';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -126,17 +127,6 @@ const Dashboard: React.FC = () => {
             </svg>
             {sidebarOpen && <h2>Data Cleanser</h2>}
           </div>
-          <button 
-            className="toggle-btn" 
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            title={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <line x1="3" y1="12" x2="21" y2="12" strokeWidth="2"/>
-              <line x1="3" y1="6" x2="21" y2="6" strokeWidth="2"/>
-              <line x1="3" y1="18" x2="21" y2="18" strokeWidth="2"/>
-            </svg>
-          </button>
         </div>
 
         {sidebarOpen && (
@@ -198,7 +188,9 @@ const Dashboard: React.FC = () => {
                 : 'Manage your account settings and preferences'
               }
             </p>
+            <ThemeToggle />
           </div>
+          
         </header>
 
         {message && (

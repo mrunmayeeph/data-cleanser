@@ -1,6 +1,7 @@
 // client/src/components/CSVUpload.tsx
 import React, { useState, useCallback } from 'react';
 import ApiService, { CSVUploadResponse, PreprocessOptions, TaskStatusResponse } from '../api_service';
+import DataVisualization from './DataVisualisation';
 import './CSVUpload.css';
 
 interface ProcessedFile {
@@ -405,6 +406,16 @@ const CSVUpload: React.FC<CSVUploadProps> = ({ onUploadSuccess }) => {
                 ))}
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Data Visualizations */}
+        {uploadedData && (
+          <div className="card full-width">
+            <div className="card-header">
+              <h2>Data Insights</h2>
+            </div>
+            <DataVisualization qualityReport={uploadedData.quality_report} />
           </div>
         )}
 

@@ -2,6 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
+import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import ApiService from './api_service';
 import './App.css';
@@ -53,6 +54,15 @@ const App: React.FC = () => {
             element={
               <PublicRoute>
                 <Login />
+              </PublicRoute>
+            } 
+          />
+          
+          <Route 
+            path="/register" 
+            element={
+              <PublicRoute>
+                <Register />
               </PublicRoute>
             } 
           />

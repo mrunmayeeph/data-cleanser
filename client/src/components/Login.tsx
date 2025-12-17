@@ -1,6 +1,6 @@
 // client/src/components/Login.tsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import ApiService from '../api_service';
 import './Auth.css';
 
@@ -10,249 +10,146 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true);
   
-  // Login form state
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  
-  // Register form state
-  const [registerEmail, setRegisterEmail] = useState('');
-  const [registerUsername, setRegisterUsername] = useState('');
-  const [registerPassword, setRegisterPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    if (!loginEmail || !loginPassword) {
+    if (!email || !password) {
       setError('Please fill in all fields');
       setLoading(false);
       return;
     }
 
     try {
-      await ApiService.login(loginEmail, loginPassword);
-      setSuccess('Login successful! Redirecting...');
+      const response = await ApiService.login(email, password);
       
       if (onLoginSuccess) {
         onLoginSuccess();
       }
       
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 1000);
+      navigate('/dashboard');
     } catch (err) {
       setError(ApiService.handleError(err));
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
-    setLoading(true);
-
-    // Validation
-    if (!registerEmail || !registerUsername || !registerPassword || !confirmPassword) {
-      setError('Please fill in all fields');
-      setLoading(false);
-      return;
-    }
-
-    if (registerPassword !== confirmPassword) {
-      setError('Passwords do not match');
-      setLoading(false);
-      return;
-    }
-
-    if (registerPassword.length < 8) {
-      setError('Password must be at least 8 characters long');
-      setLoading(false);
-      return;
-    }
-
-    try {
-      await ApiService.register(registerEmail, registerUsername, registerPassword);
-      setSuccess('Registration successful! Please login.');
-      
-      // Clear form and switch to login
-      setRegisterEmail('');
-      setRegisterUsername('');
-      setRegisterPassword('');
-      setConfirmPassword('');
-      
-      setTimeout(() => {
-        setIsLogin(true);
-        setSuccess('');
-      }, 2000);
-    } catch (err) {
-      setError(ApiService.handleError(err));
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const toggleMode = () => {
-    setIsLogin(!isLogin);
-    setError('');
-    setSuccess('');
-    
-    // Clear all form fields
-    setLoginEmail('');
-    setLoginPassword('');
-    setRegisterEmail('');
-    setRegisterUsername('');
-    setRegisterPassword('');
-    setConfirmPassword('');
   };
 
   return (
     <div className="auth-container">
-      <div className="auth-card">
-        <div className="auth-header">
+      <div className="auth-left">
+        <div className="auth-brand">
+          <div className="brand-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <line x1="9" y1="9" x2="15" y2="9"/>
+              <line x1="9" y1="15" x2="15" y2="15"/>
+            </svg>
+          </div>
           <h1>Data Cleanser</h1>
-          <p>CSV Processing Platform</p>
         </div>
-
-        <div className="auth-tabs">
-          <button
-            className={`auth-tab ${isLogin ? 'active' : ''}`}
-            onClick={() => setIsLogin(true)}
-          >
-            Login
-          </button>
-          <button
-            className={`auth-tab ${!isLogin ? 'active' : ''}`}
-            onClick={() => setIsLogin(false)}
-          >
-            Register
-          </button>
+        
+        <div className="auth-info">
+          <h2>Professional CSV Data Processing</h2>
+          <ul className="feature-list">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span>Process files up to 100MB</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span>Automated data quality analysis</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span>Real-time preprocessing</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span>Secure data handling</span>
+            </li>
+          </ul>
         </div>
+      </div>
 
-        {error && <div className="auth-error">{error}</div>}
-        {success && <div className="auth-success">{success}</div>}
+      <div className="auth-right">
+        <div className="auth-form-container">
+          <div className="auth-form-header">
+            <h2>Sign In</h2>
+            <p>Access your data processing workspace</p>
+          </div>
 
-        {isLogin ? (
+          {error && (
+            <div className="alert-box alert-error">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              {error}
+            </div>
+          )}
+
           <form onSubmit={handleLogin} className="auth-form">
             <div className="form-group">
-              <label htmlFor="login-email">Email</label>
+              <label htmlFor="email">Email Address</label>
               <input
                 type="email"
-                id="login-email"
-                value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
-                placeholder="Enter your email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@company.com"
                 disabled={loading}
                 required
+                autoComplete="email"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="login-password">Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
-                id="login-password"
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
                 disabled={loading}
                 required
+                autoComplete="current-password"
               />
             </div>
 
-            <button type="submit" className="auth-button" disabled={loading}>
-              {loading ? 'Logging in...' : 'Login'}
+            <button type="submit" className="btn-primary" disabled={loading}>
+              {loading ? (
+                <>
+                  <span className="spinner-small"></span>
+                  Signing In...
+                </>
+              ) : (
+                'Sign In'
+              )}
             </button>
-
-            <div className="auth-footer">
-              <p>
-                Don't have an account?{' '}
-                <button type="button" onClick={toggleMode} className="link-button">
-                  Register here
-                </button>
-              </p>
-            </div>
           </form>
-        ) : (
-          <form onSubmit={handleRegister} className="auth-form">
-            <div className="form-group">
-              <label htmlFor="register-email">Email</label>
-              <input
-                type="email"
-                id="register-email"
-                value={registerEmail}
-                onChange={(e) => setRegisterEmail(e.target.value)}
-                placeholder="Enter your email"
-                disabled={loading}
-                required
-              />
-            </div>
 
-            <div className="form-group">
-              <label htmlFor="register-username">Username</label>
-              <input
-                type="text"
-                id="register-username"
-                value={registerUsername}
-                onChange={(e) => setRegisterUsername(e.target.value)}
-                placeholder="Choose a username"
-                disabled={loading}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="register-password">Password</label>
-              <input
-                type="password"
-                id="register-password"
-                value={registerPassword}
-                onChange={(e) => setRegisterPassword(e.target.value)}
-                placeholder="Create a password"
-                disabled={loading}
-                required
-              />
-              <small className="form-hint">
-                Must be at least 8 characters with uppercase, lowercase, and numbers
-              </small>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="confirm-password">Confirm Password</label>
-              <input
-                type="password"
-                id="confirm-password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm your password"
-                disabled={loading}
-                required
-              />
-            </div>
-
-            <button type="submit" className="auth-button" disabled={loading}>
-              {loading ? 'Creating account...' : 'Register'}
-            </button>
-
-            <div className="auth-footer">
-              <p>
-                Already have an account?{' '}
-                <button type="button" onClick={toggleMode} className="link-button">
-                  Login here
-                </button>
-              </p>
-            </div>
-          </form>
-        )}
+          <div className="auth-footer">
+            <p>Don't have an account? <Link to="/register" className="link">Create Account</Link></p>
+          </div>
+        </div>
       </div>
     </div>
   );
