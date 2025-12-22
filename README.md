@@ -41,53 +41,38 @@ Werkzeug – Secure file handling and request processing
 ```bash
 datacleanser/
 │
-├── client/                          # React + TypeScript Frontend
-│   ├── public/
-│   │   └── index.html
-│   │
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── CSVUpload.tsx        # CSV upload, analysis, preprocessing UI
-│   │   │   ├── CSVUpload.css
-│   │   │   ├── Dashboard.tsx        # Main dashboard (sidebar + content)
-│   │   │   ├── Dashboard.css
-│   │   │   ├── Login.tsx            # Login & Register UI
-│   │   │   ├── Auth.css
-│   │   │
-│   │   ├── api_service.ts           # Axios API wrapper (auth, upload, preprocess)
-│   │   ├── App.tsx                  # Routing + protected routes
-│   │   ├── App.css
-│   │   ├── index.tsx                # React root
-│   │   ├── index.css                # Global styles
-│   │
-│   ├── package.json
-│   ├── package-lock.json
-│   └── tsconfig.json
+├── client/                     # Frontend (React + TypeScript)
+│   └── src/
+│       ├── components/         # Core UI components
+│       │   ├── CSVUpload.tsx   # Upload, analysis & preprocessing UI
+│       │   ├── Dashboard.tsx   # Main dashboard
+│       │   ├── DataVisualisation.tsx
+│       │   ├── Login.tsx
+│       │   └── ThemeToggle.tsx
+│       │
+│       ├── api_service.ts      # Axios API abstraction
+│       └── App.tsx             # Routing & protected routes
 │
-├── server/                          # Flask Backend
-│   ├── controllers/
-│   │   ├── csv_controller.py        # Upload, analysis, preprocessing, download
-│   │   ├── user_controller.py       # Auth, profile, password management
+├── server/                     # Backend (Flask)
+│   ├── controllers/            # REST API controllers
+│   │   ├── csv_controller.py   # CSV upload, analysis, preprocessing
+│   │   └── user_controller.py  # Authentication & user management
 │   │
-│   ├── models/
-│   │   └── user.py                  # SQLAlchemy User model
+│   ├── models/                 # Database models
+│   │   ├── user_model.py
+│   │   └── token_model.py
 │   │
-│   ├── routes/
-│   │   └── __init__.py              # Route registration
-│   │
-│   ├── extensions.py                # DB initialization
-│   ├── app.py                       # Flask app entry point
-│   └── uploads/                     # Uploaded CSV files
+│   ├── app.py                  # Flask app entry point
+│   ├── routes.py               # API route registration
+│   └── extensions.py           # DB & JWT configuration
 │
-├── redis/                           # Redis (used by RQ)
-│
-├── requirements.txt                 # Python dependencies
-├── .env                             # Environment variables
 ├── README.md
-└── .gitignore
+└── requirements.txt
+
 
 
 ```
+
 
 
 
