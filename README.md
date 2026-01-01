@@ -90,8 +90,77 @@ datacleanser/
 ```
 
 
+⚙️ Setup & Installation
+
+Follow the steps below to run Data Cleanser – CSV Cleaner locally.
+
+🔧 Prerequisites
+
+Make sure you have the following installed:
+
+Node.js (v18 or later)
+
+Python (v3.9 or later)
+
+Redis (for background task processing)
+
+Git
+
+📥 Clone the Repository
+git clone https://github.com/<your-username>/datacleanser.git
+cd datacleanser
+
+🚀 Backend Setup (Flask)
+1️⃣ Create and Activate Virtual Environment
+cd server
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# macOS / Linux
+source venv/bin/activate
+
+2️⃣ Install Backend Dependencies
+pip install -r requirements.txt
+
+3️⃣ Environment Variables
+
+Create a .env file inside the server/ directory:
+
+FLASK_ENV=development
+SECRET_KEY=your_secret_key
+JWT_SECRET_KEY=your_jwt_secret
+DATABASE_URL=sqlite:///datacleanser.db
+REDIS_URL=redis://localhost:6379/0
+
+4️⃣ Start Redis Server
+redis-server
+
+5️⃣ Run Background Worker (RQ)
+
+Open a new terminal (inside server/):
+
+rq worker
+
+6️⃣ Start Flask Server
+python app.py
 
 
+Backend will run at:
+
+http://localhost:5000
+
+🎨 Frontend Setup (React + TypeScript)
+1️⃣ Install Dependencies
+cd ../client
+npm install
+
+2️⃣ Start Frontend Server
+npm start
 
 
+Frontend will run at:
+
+http://localhost:3000
 
